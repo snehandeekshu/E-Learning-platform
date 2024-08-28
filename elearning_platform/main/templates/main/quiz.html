@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz.title }} - Quiz</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ quiz.title }}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'course_list' %}">Courses</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="quiz">
+        <h2>{{ chapter.title }}</h2>
+        <p>{{ quiz.description }}</p>
+        <form method="post" action="">
+            {% csrf_token %}
+            {% for question in questions %}
+                <div class="question">
+                    <p>{{ forloop.counter }}. {{ question.question_text }}</p>
+                    <input type="radio" id="option1-{{ question.id }}" name="question-{{ question.id }}" value="{{ question.option1 }}">
+                    <label for="option1-{{ question.id }}">{{ question.option1 }}</label><br>
+                    <input type="radio" id="option2-{{ question.id }}" name="question-{{ question.id }}" value="{{ question.option2 }}">
+                    <label for="option2-{{ question.id }}">{{ question.option2 }}</label><br>
+                    <input type="radio" id="option3-{{ question.id }}" name="question-{{ question.id }}" value="{{ question.option3 }}">
+                    <label for="option3-{{ question.id }}">{{ question.option3 }}</label><br>
+                    <input type="radio" id="option4-{{ question.id }}" name="question-{{ question.id }}" value="{{ question.option4 }}">
+                    <label for="option4-{{ question.id }}">{{ question.option4 }}</label><br>
+                </div>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Social Media</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

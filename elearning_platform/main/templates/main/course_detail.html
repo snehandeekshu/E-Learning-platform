@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.title }} - E-Learning Platform</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <style>
+        .chapter-container {
+            margin-bottom: 20px;
+        }
+        .chapter-actions {
+            margin-top: 10px;
+        }
+        .chapter-actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #0066cc;
+        }
+        .chapter-actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Learning Platform</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'course_list' %}">Courses</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="course-detail">
+        <h2>{{ course.title }}</h2>
+        <p>Instructor: {{ course.instructor }}</p>
+        <p>{{ course.description }}</p>
+        <div class="chapters">
+            <h3>Chapters</h3>
+            <ul>
+                {% for chapter in chapters %}
+                <li class="chapter-container">
+                    <h4>{{ chapter.title }}</h4>
+                    <div class="chapter-actions">
+                        <a href="{% url 'video_view' chapter.id %}">Watch Video</a>
+                        <a href="{% url 'quiz' chapter.id %}">Take Quiz</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 E-Learning Platform. All rights reserved.</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Social Media</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
